@@ -36,16 +36,17 @@ export default {
 </script>
   
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
 .navbar {
     display: flex;
     justify-content: flex-start;
     padding: 1rem;
+    height: 46px;
     background-color: #181818;
 }
 
 .nav-burger {
+    display: flex;
+    align-items: center;
     cursor: pointer;
     color: #DADADA
 }
@@ -59,6 +60,7 @@ export default {
 }
 
 .nav-list-wrapper {
+    z-index: 10;
     position: fixed;
     top: 0;
     left: 0;
