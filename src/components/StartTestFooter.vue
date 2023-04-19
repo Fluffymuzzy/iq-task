@@ -10,12 +10,11 @@
                 качественно <b>изменить все
                     аспекты своей жизни:</b> от финансового до любовного.</p>
         </div>
-        <YellowButton buttonText="Пройти тест" buttonClass="test__btn" />
+        <YellowButton buttonText="Пройти тест" buttonClass="test__btn" @click="goToTestPage" />
         <div class="test__footer-year">
             <img src="../assets/images/ellipse.png" class="test__footer-symbol" />
             <p>
                 2019
-
             </p>
         </div>
     </div>
@@ -28,6 +27,11 @@ export default {
     name: "StartTestFooter",
     components: {
         YellowButton
+    },
+    methods: {
+        goToTestPage() {
+            this.$router.push("/test")
+        }
     }
 }
 </script>

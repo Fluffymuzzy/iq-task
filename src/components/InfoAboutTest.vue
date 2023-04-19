@@ -1,12 +1,14 @@
 <template>
-    <div class="info__quote-up"></div>
-    <div class="info__quote-down">“</div>
-    <div class="info__wrapper">
-        <p class="info__text">
-            Профессиональный IQ-тест позволяет не только определить коэффициент вашего интеллекта,
-            но и выработать список рекомендаций для повышения этого показателя.
-        </p>
-    </div>
+    <section id="about">
+        <div class="info__quote-up"></div>
+        <div class="info__quote-down">“</div>
+        <div class="info__wrapper">
+            <p class="info__text">
+                Профессиональный IQ-тест позволяет не только определить коэффициент вашего интеллекта,
+                но и выработать список рекомендаций для повышения этого показателя.
+            </p>
+        </div>
+    </section>
 </template>
 
 <script>

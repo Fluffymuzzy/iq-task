@@ -1,5 +1,5 @@
 <template>
-    <div class="start__test-wrapper">
+    <div id="test-info" class="start__test-wrapper">
         <p class="start__test-text">Также по результатам теста
             <span>вы получите
             </span>
@@ -11,7 +11,7 @@
             которая принесет вам скорейший финансовый результат.
         </p>
         <img src="../assets/images/st-img.png" alt="brain" class="start__test-img">
-        <YellowButton buttonText="Пройти тест" buttonClass="start__test-btn" />
+        <YellowButton buttonText="Пройти тест" buttonClass="start__test-btn" @click="goToTestPage" />
     </div>
 </template>
 
@@ -22,6 +22,11 @@ export default {
     name: "StartTest",
     components: {
         YellowButton
+    },
+    methods: {
+        goToTestPage() {
+            this.$router.push("/test")
+        }
     }
 }
 </script>

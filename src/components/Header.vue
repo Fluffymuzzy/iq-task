@@ -9,9 +9,9 @@
             <i class="material-icons close">close</i>
         </div>
         <ul class="nav-list">
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">Информация о тесте</a></li>
-            <li><a href="#">Пройти тест</a></li>
+            <li><a href="/" @click="scrollToSection('main')">Главная</a></li>
+            <li><a href="#about" @click="scrollToSection('about')">Информация о тесте</a></li>
+            <li><a href="#test-info" @click="scrollToSection('test-info')">Пройти тест</a></li>
         </ul>
     </div>
 </template>
@@ -31,6 +31,16 @@ export default {
                 navBurger.style.display = this.showMenu ? 'none' : 'block';
             }
         },
+        scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop,
+                    behavior: 'smooth'
+                })
+                this.showMenu = false;
+            }
+        }
     },
 };
 </script>
@@ -60,7 +70,7 @@ export default {
 }
 
 .nav-list-wrapper {
-    z-index: 10;
+    z-index: 100;
     position: fixed;
     top: 0;
     left: 0;

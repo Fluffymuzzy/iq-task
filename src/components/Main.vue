@@ -7,7 +7,7 @@
             <span class="main__title-third">IQ</span>
         </div>
         <img src="../assets/images/brain.png" alt="logo" class="main__img">
-        <YellowButton buttonText="Пройдите тест" buttonClass="" />
+        <YellowButton buttonText="Пройдите тест" buttonClass="main__btn" @click="goToTestPage" />
         <div class="main__text">
             <p class="main__text-first">
                 и получите рекомендации
@@ -29,6 +29,11 @@ export default {
     name: "Main",
     components: {
         YellowButton
+    },
+    methods: {
+        goToTestPage() {
+            this.$router.push("/test")
+        }
     }
 }
 </script>
@@ -40,7 +45,6 @@ export default {
     align-items: center;
     background-image: url(../assets/images/main_bg_lg.png);
     color: white;
-    /* height: 100vh; */
 }
 
 .main__pre-title {
@@ -94,7 +98,14 @@ export default {
     color: #FFC700;
 }
 
+.main__img {
+    width: 240px;
+    height: 232px;
+}
+
 .main__more {
+    margin-top: 13px;
+    margin-bottom: 12px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -110,5 +121,14 @@ export default {
 
 .main__more:hover {
     color: #DADADA
+}
+
+.main__btn {
+    color: #0D0C11;
+    background: radial-gradient(50% 50% at 50% 50%, #FFC700 0%, #FFC700 100%);
+}
+
+.main__btn:hover {
+    background: #f1d982;
 }
 </style>
