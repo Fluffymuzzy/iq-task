@@ -10,13 +10,13 @@
             </span>
             которая принесет вам скорейший финансовый результат.
         </p>
-        <img src="../assets/images/st-img.png" alt="brain" class="start__test-img">
+        <img src="../../public/images/home/st-img.png" alt="brain" class="start__test-img">
         <YellowButton buttonText="Пройти тест" buttonClass="start__test-btn" @click="goToTestPage" />
     </div>
 </template>
 
 <script>
-import YellowButton from './YellowButton.vue';
+import YellowButton from './Button.vue';
 
 export default {
     name: "StartTest",

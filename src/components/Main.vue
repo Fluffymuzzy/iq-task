@@ -6,7 +6,7 @@
             <span class="main__title-second">определение</span>
             <span class="main__title-third">IQ</span>
         </div>
-        <img src="../assets/images/brain.png" alt="logo" class="main__img">
+        <img src="../../public/images/home/brain.png" alt="logo" class="main__img">
         <YellowButton buttonText="Пройдите тест" buttonClass="main__btn" @click="goToTestPage" />
         <div class="main__text">
             <p class="main__text-first">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import YellowButton from './YellowButton.vue';
+import YellowButton from './Button.vue';
 
 export default {
     name: "Main",
@@ -43,7 +43,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(../assets/images/main_bg_lg.png);
+    background-image: url(../../public/images/main_bg_lg.png);
     color: white;
 }
 

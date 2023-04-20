@@ -12,7 +12,7 @@
         </div>
         <YellowButton buttonText="Пройти тест" buttonClass="test__btn" @click="goToTestPage" />
         <div class="test__footer-year">
-            <img src="../assets/images/ellipse.png" class="test__footer-symbol" />
+            <img src="../../public/images/home/ellipse.png" class="test__footer-symbol" />
             <p>
                 2019
             </p>
@@ -21,10 +21,8 @@
 </template>
 
 <script>
-import YellowButton from './YellowButton.vue';
-
+import YellowButton from './Button.vue';
 export default {
-    name: "StartTestFooter",
     components: {
         YellowButton
     },
@@ -62,7 +60,7 @@ export default {
     flex-direction: column;
     align-items: center;
     color: #ffff;
-    background: url(../assets/images/main_bg_lg.png);
+    background: url(../../public/images/main_bg_lg.png);
 }
 
 .test__footer-text {

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
-import Test from "../components/Test.vue";
+import Test from "../pages/Test.vue";
 
 export default createRouter({
   history: createWebHistory(),

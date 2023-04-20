@@ -1,7 +1,7 @@
 <template>
     <section id="about">
         <div class="info__quote-up"></div>
-        <div class="info__quote-down">“</div>
+        <div class="info__quote-down"></div>
         <div class="info__wrapper">
             <p class="info__text">
                 Профессиональный IQ-тест позволяет не только определить коэффициент вашего интеллекта,
@@ -17,7 +17,7 @@
 
 <style >
 .info__wrapper {
-    background: url(../assets/images/info.png) no-repeat center fixed;
+    background: url(../../public/images/home/info.png) no-repeat center fixed;
     background-size: cover;
     height: 339px;
     width: 100%;
@@ -28,7 +28,7 @@
 
 }
 
-.info__quote-up {
+/* .info__quote-up {
     color: #ffff;
     width: 23px;
     height: 22.35px;
@@ -48,7 +48,7 @@
     top: 961px;
     background: url(../assets/images/down.png) no-repeat center;
     background-size: contain;
-}
+} */
 
 @media (min-width: 375px) {
     .info__quote-down {
