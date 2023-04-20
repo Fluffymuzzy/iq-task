@@ -1,5 +1,5 @@
 <template>
-    <section class="test__wrapper" v-if="!testCompleted">
+    <section class="test__wrapper" v-if="!testCompleted && !loading">
         <div class="test__progress" :style="{ background: progressBar }">
         </div>
         <p class="test__question">{{ getCurrentQuestion.question }}</p>
@@ -21,10 +21,16 @@
     </section>
 
 
-    <section v-else-if="loading">
+    <section v-if="loading" class="test__wrapper">
+        <div class="test__progress" :style="{ background: progressBar }">
+        </div>
+        <h1 class="test__processing">Обработка результатов</h1>
+        <div class="test__spinner"></div>
+        <p class="test__text">Определение стиля мышления...........
+            .... ...................................................</p>
     </section>
 
-    <section v-else>
+    <section v-if="testCompleted && !loading" class="test__wrapper">
         <h2>done!</h2>
     </section>
 </template>
@@ -210,7 +216,6 @@ const getCurrentQuestion = computed(() => {
     if (question.options.some(option => typeof option === "object")) {
         question.isColorQuestion = true;
     }
-
     return question;
 })
 
@@ -237,18 +242,21 @@ const nextQuestion = () => {
         setTimeout(() => {
             loading.value = false;
             testCompleted.value = true;
-        }, 3000);
+        }, 5000);
     }
 }
-
-
-
 
 </script>
 
 <style>
-.loading {
-    color: #fff;
+/* quiz styles */
+
+.test__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/images/main_bg_lg.png);
+    min-height: 100vh;
 }
 
 .test__image {
@@ -270,14 +278,6 @@ const nextQuestion = () => {
     cursor: pointer;
 }
 
-.test__wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: url(../../public/images/main_bg_lg.png);
-    min-height: 100vh;
-}
-
 .test__progress {
     margin-top: 17px;
     width: 260px;
@@ -287,12 +287,6 @@ const nextQuestion = () => {
     opacity: 0.59;
     border-radius: 10.5px;
 }
-
-.test__progress.completed {
-    background-color: #00FF00;
-}
-
-
 
 .test__option {
     color: #fff;
@@ -358,4 +352,133 @@ const nextQuestion = () => {
 .option input {
     display: none;
 }
+
+/* ------------------------- */
+/* loading page */
+
+.test__processing {
+    width: 237px;
+    height: 60px;
+    margin-top: 49px;
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.test__spinner {
+    color: #3BDE7C;
+    font-size: 90px;
+    text-indent: -9999em;
+    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    margin: 72px auto;
+    position: relative;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+    animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+@-webkit-keyframes load6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@keyframes load6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@-webkit-keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.test__text {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    width: 276px;
+    height: 60px;
+}
+
+/* ------------------------- */
 </style>
