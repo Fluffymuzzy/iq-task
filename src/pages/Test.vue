@@ -1,4 +1,6 @@
 <template>
+    <!-- quiz section -->
+
     <section class="test__wrapper" v-if="!testCompleted && !loading">
         <div class="test__progress" :style="{ background: progressBar }">
         </div>
@@ -8,7 +10,7 @@
         </div>
         <div class="test__options">
             <label v-for="(option, index) in getCurrentQuestion.options" :key="index" :class="`option ${getCurrentQuestion.selected == index ? index == getCurrentQuestion.answer ? 'correct'
-                : 'correct' : ''} ${getCurrentQuestion.selected != null && index != getCurrentQuestion.selected ? 'disabled' : ''
+                    : 'correct' : ''} ${getCurrentQuestion.selected != null && index != getCurrentQuestion.selected ? 'disabled' : ''
                 }`">
                 <input type="radio" :name="getCurrentQuestion.index" :value="index" v-model="getCurrentQuestion.selected"
                     :disabled="getCurrentQuestion.selected" @change="setAnswer">
@@ -17,9 +19,11 @@
                 <span class="test__option" v-else>{{ option }}</span>
             </label>
         </div>
-        <Button buttonText="Далее" buttonClass="test__btn" @click="nextQuestion" :disabled="!getCurrentQuestion.selected" />
+        <Button buttonText="Далее" buttonClass="test__button" @click="nextQuestion"
+            :disabled="!getCurrentQuestion.selected" />
     </section>
 
+    <!-- loading section -->
 
     <section v-if="loading" class="test__wrapper">
         <div class="test__progress" :style="{ background: progressBar }">
@@ -30,15 +34,50 @@
             .... ...................................................</p>
     </section>
 
+    <!-- get result section -->
+
     <section v-if="testCompleted && !loading" class="test__wrapper">
-        <h2>done!</h2>
+        <h2 class="get__result-title">Ваш результат рассчитан:</h2>
+        <p class="get__result-text">
+            Вы относитесь к 3% респондентов, чей уровень интеллекта более чем на
+            15 пунктов отличается от среднего в большую или меньшую сторону!
+        </p>
+        <h1 class="get__result-second-title">Скорее получите свой результат!
+        </h1>
+        <div class="get__result-wrapper">
+            <p>В целях защиты персональных
+                данных результат теста, их подробная интерпретация и рекомендации доступны в виде голосового сообщения по
+                звонку с вашего мобильного телефона
+            </p>
+        </div>
+        <div class="get__result-timer">
+            <p>Звоните скорее, запись доступна всего</p>
+            <span>{{ displayTime }} минут</span>
+        </div>
+        <router-link to="/result" style="text-decoration: none;">
+            <button class="get__result-button">
+                <img src="images/test/phone.png" />
+                <p>Позвонить и прослушать результат</p>
+            </button>
+        </router-link>
+        <div class="get__result-footer">
+            <span>TERMENI SI CONDITII: ACESTA ESTE UN SERVICIU DE DIVERTISMENT. PRIN FOLOSIREA LUI DECLARATI CA AVETI 18 ANI
+                IMPLINITI, </span>
+        </div>
     </section>
 </template>
 
 <script setup>
 
-import { ref, computed } from "vue"
+import { ref, computed, watch } from "vue"
 import Button from '../components/Button.vue';
+
+const testCompleted = ref(false)
+const currentQuestion = ref(0)
+const loading = ref(false);
+const remainingTime = ref(600);
+
+
 
 const questions = ref([
     {
@@ -160,7 +199,7 @@ const questions = ref([
             "4",
         ],
         selected: null,
-        image: "../../public/images/test/test.png",
+        image: "images/test/test.png",
 
     },
     {
@@ -185,7 +224,7 @@ const questions = ref([
             "Оно-находится в состоянии равновесия",
         ],
         selected: null,
-        image: "../../public/images/test/test2.png",
+        image: "images/test/test2.png",
 
     },
     {
@@ -200,14 +239,10 @@ const questions = ref([
             "42"
         ],
         selected: null,
-        image: "../../public/images/test/test3.png",
+        image: "images/test/test3.png",
 
     },
 ])
-
-const testCompleted = ref(false)
-const currentQuestion = ref(0)
-const loading = ref(false);
 
 const getCurrentQuestion = computed(() => {
     let question = questions.value[currentQuestion.value];
@@ -227,6 +262,23 @@ const progressBar = computed(() => {
     return `linear-gradient(to right, #3BDE7C ${progressWidth.value}, #F2F3F3 ${progressWidth.value})`;
 });
 
+const displayTime = computed(() => {
+    const minutes = Math.floor(remainingTime.value / 60);
+    const seconds = remainingTime.value % 60;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+});
+
+watch(testCompleted, (newValue) => {
+    if (newValue) {
+        const intervalId = setInterval(() => {
+            remainingTime.value--;
+            if (remainingTime.value === 0) {
+                clearInterval(intervalId);
+                alert("Время истекло! Перейдите на главную и попробуйте снова!");
+            }
+        }, 1000);
+    }
+});
 
 const setAnswer = (e) => {
     questions.value[currentQuestion.value].selected = e.target.value;
@@ -257,6 +309,7 @@ const nextQuestion = () => {
     align-items: center;
     background-image: url(/images/main_bg_lg.png);
     min-height: 100vh;
+    color: #FFFFFF;
 }
 
 .test__image {
@@ -289,7 +342,6 @@ const nextQuestion = () => {
 }
 
 .test__option {
-    color: #fff;
     font-family: 'PT Serif';
     font-style: normal;
     font-weight: 400;
@@ -312,7 +364,6 @@ const nextQuestion = () => {
     line-height: 26px;
     text-align: center;
     letter-spacing: 0.05em;
-    color: #fff;
 }
 
 .test__options {
@@ -351,6 +402,20 @@ const nextQuestion = () => {
 
 .option input {
     display: none;
+}
+
+.test__button {
+    background: #DADADA;
+    box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    margin-top: 28px;
+    margin-bottom: 53px;
+}
+
+
+.test__button:hover {
+    background: #FFC700;
+    color: #000;
 }
 
 /* ------------------------- */
@@ -481,4 +546,164 @@ const nextQuestion = () => {
 }
 
 /* ------------------------- */
+/* get result page */
+
+.get__result-title {
+    margin-top: 18px;
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    width: 291px;
+    height: 27px;
+}
+
+.get__result-text {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    width: 268px;
+    height: 70px;
+}
+
+.get__result-second-title {
+    margin-top: 22px;
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #3BDE7C;
+    width: 268px;
+    height: 46px;
+}
+
+.get__result-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1C2741;
+    border-radius: 6px;
+    width: 256px;
+    height: 114px;
+}
+
+.get__result-wrapper p {
+    width: 232px;
+    height: 88.19px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.get__result-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.get__result-timer p {
+    font-family: 'PT Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    height: 30px;
+    color: #3BDE7C;
+}
+
+.get__result-timer span {
+    font-family: 'PT Serif';
+    width: 151px;
+    height: 31px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    color: #3BDE7C;
+}
+
+.get__result-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #EB1B00;
+    border-radius: 5px;
+    width: 290px;
+    height: 92px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.get__result-button:hover {
+    background: #3BDE7C;
+}
+
+.get__result-button p {
+    margin-top: 18px;
+    width: 209px;
+    height: 47px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.05em;
+    
+}
+
+.get__result-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.get__result-footer span {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 7px;
+    line-height: 9px;
+    letter-spacing: 0.2px;
+    color: rgba(255, 255, 255, 0.5);
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 5px 0;
+}
+
+@media screen and (min-width: 768px) {
+    .get__result-footer span {
+        max-height: initial;
+        overflow: auto;
+    }
+}
 </style>
