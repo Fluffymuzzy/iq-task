@@ -1,18 +1,22 @@
 <template>
+    <div class="lightning-left"></div>
+    <div class="lightning-right"></div>
     <div class="test__footer">
-        <p class="test__footer-text">Прохождение теста займет у вас не более <span class="test__span">12 минут</span>, а его
+        <p class="test__footer-title">Прохождение теста займет у вас не более <span class="test__span">12 минут</span>, а
+            его
             результаты вы
             сможете <span class="test__span">использовать всю
                 жизнь.</span>
         </p>
         <div class="test__footer-card">
-            <p class="test__text">Профессиональная интерпретация и детально <b>проработанные рекомендации</b> позволят вам
+            <p class="test__footer-text">Профессиональная интерпретация и детально <b>проработанные рекомендации</b>
+                позволят вам
                 качественно <b>изменить все
                     аспекты своей жизни:</b> от финансового до любовного.</p>
         </div>
         <YellowButton buttonText="Пройти тест" buttonClass="test__btn" @click="goToTestPage" />
         <div class="test__footer-year">
-            <img src="../../public/images/home/ellipse.png" class="test__footer-symbol" />
+            <img src="images/home/ellipse.png" class="test__footer-symbol" />
             <p>
                 2019
             </p>
@@ -60,10 +64,10 @@ export default {
     flex-direction: column;
     align-items: center;
     color: #ffff;
-    background: url(../../public/images/main_bg_lg.png);
+    background: url(images/main_bg_lg.png);
 }
 
-.test__footer-text {
+.test__footer-title {
     margin-top: 56px;
     margin-right: 51px;
     width: 262px;
@@ -86,7 +90,7 @@ export default {
     align-items: center;
 }
 
-.test__text {
+.test__footer-text {
     width: 274px;
     height: 156px;
     font-family: 'Merriweather';

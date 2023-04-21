@@ -14,7 +14,7 @@
 
 <style >
 .info__wrapper {
-    background: url(../../public/images/home/info.png) no-repeat center fixed;
+    background: url(images/home/info.png) no-repeat center fixed;
     background-size: cover;
     height: 339px;
     width: 100%;

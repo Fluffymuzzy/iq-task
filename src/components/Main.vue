@@ -1,13 +1,13 @@
 <template>
-    <div class="main">
+    <div class="main" id="main">
         <p class="main__pre-title">Пройдите точный и быстрый</p>
         <div class="main__title">
             <span class="main__title-first">тест на</span>
             <span class="main__title-second">определение</span>
             <span class="main__title-third">IQ</span>
         </div>
-        <img src="../../public/images/home/brain.png" alt="logo" class="main__img">
-        <YellowButton buttonText="Пройдите тест" buttonClass="main__btn" @click="goToTestPage" />
+        <img src="images/home/brain.png" alt="logo" class="main__img">
+        <Button buttonText="Пройдите тест" buttonClass="main__btn" @click="goToTestPage" />
         <div class="main__text">
             <p class="main__text-first">
                 и получите рекомендации
@@ -23,12 +23,11 @@
 </template>
 
 <script>
-import YellowButton from './Button.vue';
+import Button from './Button.vue';
 
 export default {
-    name: "Main",
     components: {
-        YellowButton
+        Button
     },
     methods: {
         goToTestPage() {
@@ -43,7 +42,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(../../public/images/main_bg_lg.png);
+    background-image: url(images/main_bg_lg.png);
     color: white;
 }
 

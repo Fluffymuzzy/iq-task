@@ -9,9 +9,9 @@
             <i class="material-icons close">close</i>
         </div>
         <ul class="nav-list">
-            <li><a href="/" @click="scrollToSection('main')">Главная</a></li>
-            <li><a href="#about" @click="scrollToSection('about')">Информация о тесте</a></li>
-            <li><a href="#test-info" @click="scrollToSection('test-info')">Пройти тест</a></li>
+            <li><router-link to="/" v-on:click.native="scrollToSection('main')">Главная</router-link></li>
+            <li><router-link to="/" v-on:click.native="scrollToSection('about')">Информация о тесте</router-link></li>
+            <li><router-link to="/" v-on:click.native="scrollToSection('test-info')">Пройти тест</router-link></li>
         </ul>
     </div>
 </template>
